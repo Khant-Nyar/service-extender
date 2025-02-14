@@ -2,7 +2,7 @@
 
 namespace KhantNyar\ServiceExtender\Services;
 
-use App\Services\App\Interface\ThirpartyApiInterface;
+use KhantNyar\ServiceExtender\Services\Contracts\ThirpartyApiInterface;
 
 abstract class ApiService implements ThirpartyApiInterface
 {

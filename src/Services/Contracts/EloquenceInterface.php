@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\App\Interface;
+namespace KhantNyar\ServiceExtender\Services\Contracts;
 
 interface EloquenceInterface
 {

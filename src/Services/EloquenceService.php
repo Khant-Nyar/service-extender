@@ -2,13 +2,18 @@
 
 namespace KhantNyar\ServiceExtender\Services;
 
-use App\Services\App\Interface\EloquenceInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Exception;
+use KhantNyar\ServiceExtender\Services\Contracts\EloquenceInterface;
 
 abstract class EloquenceService implements EloquenceInterface
 {
+    /**
+     * The model class to be used in the service.
+     *
+     * @var class-string<Model>
+     */
     protected static string $model;
 
     public static function all()
