@@ -1,0 +1,78 @@
+{
+    "preset": "laravel",
+    "rules": {
+        "simplified_null_return": true,
+        "void_return": true,
+        "array_push": true,
+        "trim_array_spaces": true,
+        "use_arrow_functions": true,
+        "strict_comparison": true,
+        "single_quote": true,
+        "single_line_empty_body": true,
+        "simplified_if_return": true,
+        "return_type_declaration": true,
+        "ordered_interfaces": true,
+        "ordered_class_elements": {
+            "order": [
+                "use_trait",
+                "case",
+                "constant",
+                "constant_public",
+                "constant_protected",
+                "constant_private",
+                "property_public",
+                "property_protected",
+                "property_private",
+                "construct",
+                "destruct",
+                "magic",
+                "phpunit",
+                "method_abstract",
+                "method_public_static",
+                "method_public",
+                "method_protected_static",
+                "method_protected",
+                "method_private_static",
+                "method_private"
+            ],
+            "sort_algorithm": "none"
+        },
+        "global_namespace_import": {
+            "import_classes": true,
+            "import_constants": true,
+            "import_functions": true
+        },
+        "method_chaining_indentation": true,
+        "blank_line_before_statement": true,
+        "clean_namespace": true,
+        "assign_null_coalescing_to_coalesce_equal": true,
+        "no_extra_blank_lines": true,
+        "list_syntax": true,
+        "array_syntax": true,
+        "array_indentation": true,
+        "blank_line_after_namespace": true,
+        "no_multiple_statements_per_line": true,
+        "braces": true,
+        "no_trailing_comma_in_singleline": true,
+        "no_trailing_comma_in_singleline_array": true,
+        "elseif": true,
+        "lowercase_keywords": true,
+        "cast_spaces": true,
+        "indentation_type": true,
+        "method_argument_space": true,
+        "no_useless_return": true,
+        "no_trailing_whitespace": true,
+        "new_with_braces": {
+            "anonymous_class": false,
+            "named_class": false
+        },
+        "binary_operator_spaces": {
+            "operators": {
+                "=>": "align_single_space_minimal"
+            }
+        },
+        "fully_qualified_strict_types": true,
+        "align_multiline_comment": true,
+        "explicit_string_variable": true
+    }
+}
