@@ -16,6 +16,11 @@ abstract class EloquenceService implements EloquenceInterface
      */
     protected static string $model;
 
+    public static function get()
+    {
+        return static::$model::get();
+    }
+    
     public static function all()
     {
         return static::$model::all();
