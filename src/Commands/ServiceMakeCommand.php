@@ -7,7 +7,7 @@ use Illuminate\Support\Str;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputOption;
 
-#[AsCommand(name: 'make:service')]
+#[AsCommand(name: 'extender-make:service')]
 class ServiceMakeCommand extends GeneratorCommand
 {
     /**
@@ -15,7 +15,7 @@ class ServiceMakeCommand extends GeneratorCommand
      *
      * @var string
      */
-    protected $name = 'make:service';
+    protected $name = 'extender-make:service';
 
     /**
      * The console command description.
