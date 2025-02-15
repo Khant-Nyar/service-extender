@@ -3,6 +3,8 @@
 namespace KhantNyar\ServiceExtender;
 
 use Illuminate\Support\ServiceProvider;
+use KhantNyar\ServiceExtender\Commands\ServiceMakeCommand;
+use Illuminate\Support\Str;
 
 class ServiceExtenderServiceProvider extends ServiceProvider
 {
@@ -40,7 +42,7 @@ class ServiceExtenderServiceProvider extends ServiceProvider
             ], 'lang');*/
 
             // Registering package commands.
-            // $this->commands([]);
+            $this->commands([ServiceMakeCommand::class]);
         }
     }
 
@@ -50,8 +52,7 @@ class ServiceExtenderServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'service-extender');
-
+        $this->mergeConfigFrom(__DIR__.'/../config/extender.php', 'service-extender');
         // Register the main class to use with the facade
         $this->app->singleton('service-extender', function () {
             return new ServiceExtender;

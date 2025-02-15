@@ -1,0 +1,11 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Models\{{ model }};
+use KhantNyar\ServiceExtender\Services\EloquenceService;
+
+class {{ class }} extends EloquenceService
+{
+    protected static string $model = {{ model }}::class; 
+}
