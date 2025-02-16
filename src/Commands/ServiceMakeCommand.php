@@ -68,24 +68,24 @@ class ServiceMakeCommand extends GeneratorCommand
                         ? $this->qualifyModel($this->option('model'))
                         : $this->qualifyModel($this->guessModelName($name));
 
-                    
         $model = class_basename($namespaceModel);
 
         $namespace = $this->getNamespace(
             Str::replaceFirst($this->rootNamespace(), 'App\\Services\\', $this->qualifyClass($this->getNameInput()))
         );
-        
+
         $replace = [
             '{{ serviceNamespace }}' => $namespace,
-            'NamespacedDummyModel' => $namespaceModel,
-            '{{ namespacedModel }}' => $namespaceModel,
-            '{{namespacedModel}}' => $namespaceModel,
-            'DummyModel' => $model,
-            '{{ model }}' => $model,
-            '{{model}}' => $model,
-            '{{ service }}' => $service,
-            '{{service}}' => $service,
+            'NamespacedDummyModel'   => $namespaceModel,
+            '{{ namespacedModel }}'  => $namespaceModel,
+            '{{namespacedModel}}'    => $namespaceModel,
+            'DummyModel'             => $model,
+            '{{ model }}'            => $model,
+            '{{model}}'              => $model,
+            '{{ service }}'          => $service,
+            '{{service}}'            => $service,
         ];
+
         return str_replace(array_keys($replace), array_values($replace), parent::buildClass($name));
     }
 
@@ -101,12 +101,13 @@ class ServiceMakeCommand extends GeneratorCommand
         $servicePath = config('extender.service_path', app_path('Services'));
 
         // Ensure the directory exists
-        if (!is_dir($servicePath)) {
+        if (! is_dir($servicePath)) {
             mkdir($servicePath, 0777, true);
         }
 
         $name = Str::replaceFirst($this->rootNamespace(), '', $name);
-        return $servicePath . '/' . str_replace('\\', '/', $name) . 'Service.php';
+
+        return $servicePath.'/'.str_replace('\\', '/', $name).'Service.php';
     }
 
     /**

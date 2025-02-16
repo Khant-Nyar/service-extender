@@ -5,7 +5,7 @@ namespace KhantNyar\ServiceExtender;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \KhantNyar\ServiceExtender\Skeleton\SkeletonClass
+ * @see KhantNyar\ServiceExtender
  */
 class ServiceExtenderFacade extends Facade
 {

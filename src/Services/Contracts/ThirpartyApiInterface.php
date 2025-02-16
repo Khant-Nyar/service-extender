@@ -2,6 +2,4 @@
 
 namespace KhantNyar\ServiceExtender\Services\Contracts;
 
-interface ThirpartyApiInterface
-{
-}
+interface ThirpartyApiInterface {}
