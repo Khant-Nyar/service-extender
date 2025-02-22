@@ -4,18 +4,29 @@ namespace KhantNyar\ServiceExtender\Services;
 
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use KhantNyar\ServiceExtender\Services\Contracts\EloquenceInterface;
 
 abstract class EloquenceService implements EloquenceInterface
 {
+    //,HasDatatable
+    // use HasDatatable;
     /**
      * The model class to be used in the service.
      *
      * @var class-string<Model>
      */
     protected static string $model;
+    
+    protected static string $primaryKey;
+
+
+    public static function make(array $options = []): Builder
+    {
+        return static::$model::query();
+    }
 
     public static function query(): Builder
     {
@@ -27,15 +38,56 @@ abstract class EloquenceService implements EloquenceInterface
         return static::$model::get();
     }
 
+    public static function first()
+    {
+        return static::$model::first();
+    }
+
     public static function all()
     {
         return static::$model::all();
     }
 
-    public static function find(int $id)
+    public static function find(string $fieldOrValue, mixed $value = null)
     {
-        return static::$model::find($id);
+        $model = static::$model;
+
+        $defaultFields = ['id', 'uuid', 'slug'];
+
+        if ($value === null) {
+            $searchableFields = array_intersect($defaultFields, (new $model)->getFillable());
+            return $model::where(function ($query) use ($searchableFields, $fieldOrValue) {
+                foreach ($searchableFields as $field) {
+                    $query->orWhere($field, $fieldOrValue);
+                }
+            })->first();
+        }
+
+        if (in_array($fieldOrValue, (new $model)->getFillable())) {
+            return $model::where($fieldOrValue, $value)->first();
+        }
+
+        throw new Exception("Invalid search field: {$fieldOrValue}");
     }
+
+
+    // public static function find(mixed $value)
+    // {
+    //     $model = static::$model;
+
+    //     // Define the default searchable fields
+    //     $searchableFields = ['id', 'uuid', 'slug'];
+
+    //     // Filter only fillable fields that exist in the model
+    //     $fillableFields = array_intersect($searchableFields, (new $model)->getFillable());
+
+    //     // Build the query to search in any of the defined fields
+    //     return $model::where(function ($query) use ($fillableFields, $value) {
+    //         foreach ($fillableFields as $field) {
+    //             $query->orWhere($field, $value);
+    //         }
+    //     })->first();
+    // }
 
     public static function create(array $data)
     {
@@ -56,19 +108,14 @@ abstract class EloquenceService implements EloquenceInterface
         }
     }
 
-    public static function update(int $id, array $data)
+    public static function update(Model $model, array $data)
     {
         DB::beginTransaction();
 
         try {
-            $model = static::$model::find($id);
-
-            if (! $model) {
-                throw new Exception(static::$model." with ID {$id} not found.");
-            }
 
             $model->update($data);
-            Log::info('Record updated in '.static::$model, ['id' => $id]);
+            Log::info('Record updated in '.static::$model, ['id' => $model->id]);
 
             DB::commit();
 
@@ -81,19 +128,14 @@ abstract class EloquenceService implements EloquenceInterface
         }
     }
 
-    public static function delete(int $id)
+    public static function delete(Model $model)
     {
         DB::beginTransaction();
 
         try {
-            $model = static::$model::find($id);
-
-            if (! $model) {
-                throw new Exception(static::$model." with ID {$id} not found.");
-            }
 
             $model->delete();
-            Log::info('Record deleted in '.static::$model, ['id' => $id]);
+            Log::info('Record deleted in '.static::$model, ['id' => $model->id]);
 
             DB::commit();
 

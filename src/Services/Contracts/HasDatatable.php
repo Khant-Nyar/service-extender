@@ -2,6 +2,6 @@
 
 namespace KhantNyar\ServiceExtender\Services\Contracts;
 
-interface ThirpartyApiInterface {
-    // public function 
+interface HasDatatable {
+    public function getDatatable();
 }
